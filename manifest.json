@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Mizito Order Extension",
+  "version": "1.0",
+  "description": "Run the mizitoOrder function on Mizito Office pages.",
+  "permissions": ["scripting", "tabs", "activeTab", "storage"],
+  "host_permissions": ["https://office.mizito.ir/*"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["libs/sortable.min.js"],
+      "matches": ["https://office.mizito.ir/*"]
+    }
+  ]
+}
