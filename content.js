@@ -1,8 +1,31 @@
+// Function to create and insert the button
+function insertButton() {
+  const button = document.createElement("button");
+  button.innerText = "مرتب‌سازی دلخواه";
+  button.style.position = "fixed";
+  button.style.top = "10px";
+  button.style.right = "50%";
+  button.style.transform = "translateX(50%)";
+  button.style.padding = "10px";
+  button.style.zIndex = 9999;
+  button.style.backgroundColor = "#4CAF50";
+  button.style.color = "white";
+  button.style.border = "none";
+  button.style.borderRadius = "5px";
+  button.style.cursor = "pointer";
+  button.addEventListener("click", mizitoOrder);
+  button.addEventListener("click", function () {
+    button.style.backgroundColor = "#aaa";
+    button.style.color = "#222";
+    button.style.cursor = "not-allowed";
+    button.disabled = true;
+  });
+  document.body.appendChild(button);
+}
+
 function mizitoOrder() {
   let task_id = 100;
   let list_id = 10000;
-  console.log("DOM fully loaded");
-  console.log(document.querySelector(".task_row_container"));
   const container = document.querySelector(".task_row_container").closest("md-list");
   const containers = getSiblingsByTagAndClass(container, "md-list", "md-my-green-theme");
   containers.unshift(container);
@@ -71,4 +94,4 @@ function getSiblingsByTagAndClass(element, tagName, className) {
 }
 
 // Execute mizitoOrder on page load
-mizitoOrder();
+insertButton();
