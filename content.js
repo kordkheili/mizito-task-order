@@ -67,6 +67,7 @@ function mizitoOrder() {
       console.error("Container not found");
     }
   });
+  createFixedDiv();
 }
 
 function getSiblingsByTagAndClass(element, tagName, className) {
@@ -88,10 +89,38 @@ function getSiblingsByTagAndClass(element, tagName, className) {
   return siblings;
 }
 
-// Wait for 5 seconds and then run the function
-if (window.location.href === "https://office.mizito.ir/#/ws/tasks/inbox/") {
-  setTimeout(() => {
-    console.log("Running mizitoOrder function...");
-    mizitoOrder();
-  }, 5000);
+function createFixedDiv() {
+  // Create the div element
+  const fixedDiv = document.createElement("div");
+  console.log(fixedDiv);
+  console.log("XXXXXXXXXXXXXXXX");
+  // Set the text content
+  fixedDiv.textContent = "مرتب‌سازی شده";
+
+  // Apply styles to position the div
+  Object.assign(fixedDiv.style, {
+    position: "fixed",
+    bottom: "10px",
+    left: "10px",
+    backgroundColor: "#007BFF", // Blue background
+    color: "white",
+    padding: "4px 8px",
+    borderRadius: "5px",
+    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+    fontSize: "12px",
+    zIndex: "1000", // Ensure it stays above other elements
+    cursor: "pointer",
+  });
+
+  // Append the div to the document body
+  document.body.appendChild(fixedDiv);
+
+  // Optional: Add a click event to hide the div when clicked
+  fixedDiv.addEventListener("click", () => {
+    fixedDiv.style.display = "none";
+  });
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  mizitoOrder();
+});
