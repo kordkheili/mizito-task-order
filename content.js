@@ -112,7 +112,7 @@ function createFixedDiv() {
     boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
     fontSize: "12px",
     zIndex: "1000", // Ensure it stays above other elements
-    cursor: "pointer",
+    userSelect: "none",
   });
 
   // Append the div to the document body

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Mizito Task Order",
-  "version": "3.1",
+  "version": "3.2",
   "description": "Mizito Task Order (by Alireza Kordkheili)",
   "permissions": ["scripting", "activeTab"],
   "host_permissions": ["https://office.mizito.ir/*"],
