@@ -1,20 +1,22 @@
 console.log("Content script loaded");
-document.addEventListener("DOMContentLoaded", function () {
-  if (window.location.href === "https://office.mizito.ir/#/ws/tasks/inbox/") {
-    console.log("URL match found. Waiting to run mizitoOrder...");
-    setTimeout(() => {
-      console.log("Running mizitoOrder...");
-      try {
-        mizitoOrder();
-        console.log("mizitoOrder executed successfully");
-      } catch (error) {
-        console.error("Error in mizitoOrder:", error);
-      }
-    }, 5000);
-  } else {
-    console.log("URL does not match. Content script exiting.");
-  }
-});
+
+function waitForElement(selector, callback) {
+  const observer = new MutationObserver(() => {
+    if (document.querySelector(selector)) {
+      observer.disconnect();
+      callback(); // Run the provided callback function
+    }
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+}
+
+if (window.location.href === "https://office.mizito.ir/#/ws/tasks/inbox/") {
+  console.log("URL match found. Waiting for elements...");
+  waitForElement(".task_row_container", () => {
+    mizitoOrder();
+  });
+}
 
 function mizitoOrder() {
   let task_id = 100;
@@ -127,7 +129,7 @@ function monitorUrlChanges(callback) {
 
   const observer = new MutationObserver(() => {
     if (currentUrl !== location.href) {
-      fixedDiv.remove();
+      if (fixedDiv) fixedDiv.remove();
       console.log(`URL changed from ${currentUrl} to ${location.href}`);
       currentUrl = location.href;
       callback(); // Run the provided callback function
@@ -141,8 +143,8 @@ function monitorUrlChanges(callback) {
 monitorUrlChanges(() => {
   if (window.location.href.includes("#/ws/tasks/inbox/")) {
     console.log("URL matches inbox. Running mizitoOrder...");
-    document.addEventListener("DOMContentLoaded", function () {
-      setTimeout(mizitoOrder, 5000);
+    waitForElement(".task_row_container", () => {
+      mizitoOrder();
     });
   }
 });
