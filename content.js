@@ -89,11 +89,10 @@ function getSiblingsByTagAndClass(element, tagName, className) {
   return siblings;
 }
 
+let fixedDiv;
 function createFixedDiv() {
   // Create the div element
-  const fixedDiv = document.createElement("div");
-  console.log(fixedDiv);
-  console.log("XXXXXXXXXXXXXXXX");
+  fixedDiv = document.createElement("div");
   // Set the text content
   fixedDiv.textContent = "مرتب‌سازی شده";
 
@@ -121,6 +120,25 @@ function createFixedDiv() {
   });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  mizitoOrder();
+function monitorUrlChanges(callback) {
+  let currentUrl = location.href;
+
+  const observer = new MutationObserver(() => {
+    if (currentUrl !== location.href) {
+      fixedDiv.remove();
+      console.log(`URL changed from ${currentUrl} to ${location.href}`);
+      currentUrl = location.href;
+      callback(); // Run the provided callback function
+    }
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+}
+
+// Initialize the URL monitor
+monitorUrlChanges(() => {
+  if (window.location.href.includes("#/ws/tasks/inbox/")) {
+    console.log("URL matches inbox. Running mizitoOrder...");
+    setTimeout(mizitoOrder, 5000);
+  }
 });
