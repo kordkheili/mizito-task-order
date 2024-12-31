@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Mizito Order Extension",
+  "name": "Mizito Task Order",
   "version": "1.0",
-  "description": "Runs mizitoOrder function on a specific URL. (by Kordkheili)",
+  "description": "Mizito Task Order (by Alireza Kordkheili)",
   "permissions": ["scripting", "activeTab"],
   "host_permissions": ["https://office.mizito.ir/*"],
   "background": {
