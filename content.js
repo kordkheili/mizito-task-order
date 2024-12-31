@@ -1,33 +1,28 @@
-// Function to create and insert the button
-function insertButton() {
-  const button = document.createElement("button");
-  button.innerText = "مرتب‌سازی دلخواه";
-  button.style.position = "fixed";
-  button.style.top = "10px";
-  button.style.right = "50%";
-  button.style.transform = "translateX(50%)";
-  button.style.padding = "10px";
-  button.style.zIndex = 9999;
-  button.style.backgroundColor = "#4CAF50";
-  button.style.color = "white";
-  button.style.border = "none";
-  button.style.borderRadius = "5px";
-  button.style.cursor = "pointer";
-  button.addEventListener("click", mizitoOrder);
-  button.addEventListener("click", function () {
-    button.style.backgroundColor = "#aaa";
-    button.style.color = "#222";
-    button.style.cursor = "not-allowed";
-    button.disabled = true;
-  });
-  document.body.appendChild(button);
+console.log("Content script loaded");
+if (window.location.href === "https://office.mizito.ir/#/ws/tasks/inbox/") {
+  console.log("URL match found. Waiting to run mizitoOrder...");
+  setTimeout(() => {
+    console.log("Running mizitoOrder...");
+    try {
+      mizitoOrder();
+      console.log("mizitoOrder executed successfully");
+    } catch (error) {
+      console.error("Error in mizitoOrder:", error);
+    }
+  }, 5000);
+} else {
+  console.log("URL does not match. Content script exiting.");
 }
 
 function mizitoOrder() {
   let task_id = 100;
   let list_id = 10000;
-  const container = document.querySelector(".task_row_container").closest("md-list");
+  const container = document.querySelector(".task_row_container")?.closest("md-list");
   const containers = getSiblingsByTagAndClass(container, "md-list", "md-my-green-theme");
+  if (!container) {
+    console.error("Main container not found");
+    return;
+  }
   containers.unshift(container);
 
   containers.forEach(function (container, index) {
@@ -93,5 +88,10 @@ function getSiblingsByTagAndClass(element, tagName, className) {
   return siblings;
 }
 
-// Execute mizitoOrder on page load
-insertButton();
+// Wait for 5 seconds and then run the function
+if (window.location.href === "https://office.mizito.ir/#/ws/tasks/inbox/") {
+  setTimeout(() => {
+    console.log("Running mizitoOrder function...");
+    mizitoOrder();
+  }, 5000);
+}
