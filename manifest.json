@@ -2,11 +2,18 @@
   "manifest_version": 3,
   "name": "Mizito Order Extension",
   "version": "1.0",
-  "description": "Runs mizitoOrder function on a specific URL.",
+  "description": "Runs mizitoOrder function on a specific URL. (by Kordkheili)",
   "permissions": ["scripting", "activeTab"],
   "host_permissions": ["https://office.mizito.ir/*"],
   "background": {
     "service_worker": "background.js"
+  },
+  "action": {
+    "default_icon": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    }
   },
   "content_scripts": [
     {
