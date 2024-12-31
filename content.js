@@ -1,18 +1,20 @@
 console.log("Content script loaded");
-if (window.location.href === "https://office.mizito.ir/#/ws/tasks/inbox/") {
-  console.log("URL match found. Waiting to run mizitoOrder...");
-  setTimeout(() => {
-    console.log("Running mizitoOrder...");
-    try {
-      mizitoOrder();
-      console.log("mizitoOrder executed successfully");
-    } catch (error) {
-      console.error("Error in mizitoOrder:", error);
-    }
-  }, 5000);
-} else {
-  console.log("URL does not match. Content script exiting.");
-}
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.location.href === "https://office.mizito.ir/#/ws/tasks/inbox/") {
+    console.log("URL match found. Waiting to run mizitoOrder...");
+    setTimeout(() => {
+      console.log("Running mizitoOrder...");
+      try {
+        mizitoOrder();
+        console.log("mizitoOrder executed successfully");
+      } catch (error) {
+        console.error("Error in mizitoOrder:", error);
+      }
+    }, 5000);
+  } else {
+    console.log("URL does not match. Content script exiting.");
+  }
+});
 
 function mizitoOrder() {
   let task_id = 100;
@@ -139,6 +141,8 @@ function monitorUrlChanges(callback) {
 monitorUrlChanges(() => {
   if (window.location.href.includes("#/ws/tasks/inbox/")) {
     console.log("URL matches inbox. Running mizitoOrder...");
-    setTimeout(mizitoOrder, 5000);
+    document.addEventListener("DOMContentLoaded", function () {
+      setTimeout(mizitoOrder, 5000);
+    });
   }
 });
