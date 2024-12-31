@@ -117,11 +117,6 @@ function createFixedDiv() {
 
   // Append the div to the document body
   document.body.appendChild(fixedDiv);
-
-  // Optional: Add a click event to hide the div when clicked
-  fixedDiv.addEventListener("click", () => {
-    fixedDiv.style.display = "none";
-  });
 }
 
 function monitorUrlChanges(callback) {
